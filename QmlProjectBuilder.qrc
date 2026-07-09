@@ -1,0 +1,32 @@
+<RCC>
+    <qresource>
+        <file>App/App.qml</file>
+        <file>App/AppSettings.qml</file>
+        <file>App/Components/Details/DetailsPane.qml</file>
+        <file>App/Components/Details/DetailsPaneResolution.qml</file>
+        <file>App/Components/qmldir</file>
+        <file>App/Controls/MaterialComboBox.qml</file>
+        <file>App/Controls/MaterialHorizontalLine.qml</file>
+        <file>App/Controls/MaterialMenu.qml</file>
+        <file>App/Controls/MaterialMenuItem.qml</file>
+        <file>App/Controls/MaterialPane.qml</file>
+        <file>App/Controls/MaterialRoundButton.qml</file>
+        <file>App/Controls/MaterialSwitch.qml</file>
+        <file>App/Controls/MaterialTextField.qml</file>
+        <file>App/Controls/qmldir</file>
+        <file>App/Core/qmldir</file>
+        <file>App/Core/ResolutionModel.qml</file>
+        <file>App/qmldir</file>
+        <file>App/Style/Icons.qml</file>
+        <file>App/Style/qmldir</file>
+        <file>App/Style/Theme.qml</file>
+        <file>assets/icons/add.png</file>
+        <file>assets/icons/filter_alt.png</file>
+        <file>assets/icons/folder.png</file>
+        <file>assets/icons/remove.png</file>
+        <file>assets/icons/search.png</file>
+        <file>main.qml</file>
+        <file>QmlProjectBuilder.qmlproject</file>
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>
