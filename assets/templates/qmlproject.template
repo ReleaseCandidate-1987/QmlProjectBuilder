@@ -63,7 +63,7 @@ Project {
     /* Baked lightmaps */
     Files {
         filter: "*.bin;*.exr;*.mesh"
-        directory: "QmlProjectBuilderContent"
+        directory: "{APP_PROJECTNAME}"
     }
 
     Environment {
@@ -85,7 +85,7 @@ Project {
     importPaths: [ "." ]
 
     /* Required for deployment */
-    targetDirectory: "/opt/QmlProjectBuilder"
+    targetDirectory: "/opt/{APP_PROJECTNAME}"
 
 
     qdsVersion: "4.8"
@@ -98,10 +98,10 @@ Project {
     /* args: Specifies command line arguments for qsb tool to generate shaders.
        files: Specifies target files for qsb tool. If path is included, it must be relative to this file.
               Wildcard '*' can be used in the file name part of the path.
-              e.g. files: [ "QmlProjectBuilderContent/shaders/*.vert", "*.frag" ]  */
+              e.g. files: [ "{APP_PROJECTNAME}/shaders/*.vert", "*.frag" ]  */
     ShaderTool {
         args: "-s --glsl 100es,120,150 --hlsl 50 --msl 12"
-        files: [ "QmlProjectBuilderContent/shaders/*" ]
+        files: [ "{APP_PROJECTNAME}/shaders/*" ]
     }
 
     EffectComposer {

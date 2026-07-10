@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Material
 
 TextField {
     id: control
@@ -8,4 +8,6 @@ TextField {
     implicitHeight: 42
     font.pointSize: Theme.fontSize.control
     placeholderText: "Placeholder Text"
+    property bool isValid: true
+    Material.accent: isValid ? Material.LightGreen : Material.Red
 }

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls.Material
 
 Switch {
+    id: switch1
     text: ""
     
     leftPadding: 0

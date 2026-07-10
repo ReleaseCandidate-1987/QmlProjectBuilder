@@ -1,0 +1,33 @@
+pragma Singleton
+import QtQuick
+
+QtObject {
+        id: qtObject
+        property string title: "{APP_PROJECTNAME}"
+        property int width: {APP_WIDTH}
+        property int height: {APP_HEIGHT}
+
+        property bool isDarkMode: {APP_DARKMODE}
+
+        property color background:		isDarkMode ? "#1e2227" : "#f7fafc"
+        property color backgroundAlt:		isDarkMode ? "#20252a" : "#f0f3f5"
+        property color backgroundMuted:		isDarkMode ? "#23282e" : "#eaedef"
+        property color border:			isDarkMode ? "#262c32" : "#e4e7e9"
+        property color foreground:		isDarkMode ? "#f7fafc" : "#1e2227"
+
+        property real fontFactor: 1.0
+
+        property QtObject fontSize: QtObject {
+                property int small:		 8 * fontFactor
+                property int control:		10 * fontFactor
+                property int medium:		12 * fontFactor
+                property int header:		16 * fontFactor
+                property int title:		18 * fontFactor
+                property int large:		24 * fontFactor
+                property int huge:		32 * fontFactor
+        }
+
+        function rgba( clr, alpha = 0.25 ) {
+                return Qt.rgba( clr.r, clr.g, clr.b, alpha );
+        }
+}

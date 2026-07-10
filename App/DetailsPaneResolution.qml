@@ -1,8 +1,8 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Material
 import QtQuick.Layouts
-import "../../Controls"
-import "../../Core"
+import "Controls"
+import "Core"
 
 import QtQml.Models
 

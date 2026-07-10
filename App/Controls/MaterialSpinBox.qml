@@ -1,11 +1,8 @@
 import QtQuick
 import QtQuick.Controls.Material
 
-MenuItem {
-    height: 32
-    text: "Desktop"
-    topPadding: 0
-    bottomPadding: 0
+SpinBox {
+    implicitHeight: 42
     font.pointSize: Theme.fontSize.control
-
+    wheelEnabled: true
 }
