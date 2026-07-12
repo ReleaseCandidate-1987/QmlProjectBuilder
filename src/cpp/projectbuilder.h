@@ -39,6 +39,7 @@ private:
     }
     void write(const QString &path, const QString &content);
     void createQmlTheme( const QString &path, const QJsonObject &obj );
+    void createQmlFonts( const QString &path, const QJsonObject &obj );
     void createQtPro( const QString &path, const QJsonObject &obj );
     void createQtConf( const QString &path, const QJsonObject &obj );
     void createQmlProject( const QString &path, const QJsonObject &obj );

@@ -30,6 +30,4 @@ HEADERS += \
     src/cpp/projectbuilder.h \
     src/cpp/projectwatcher.h
 
-DISTFILES += \
-    App/ControlPane.qml \
-    App/TitleBar.qml
+

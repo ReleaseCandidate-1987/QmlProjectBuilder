@@ -32,7 +32,7 @@ void ProjectBuilder::setProjectName(const QString &projectName)
 void ProjectBuilder::build(const QJsonObject &obj)
 {
     m_projectDir = QDir(m_projectPath + "/" + m_projectName );
-    const QStringList folders = { "App", "App/Style", "App/Compoments", "App/Controls", "App/Core", "App/Dialogs",
+    const QStringList folders = { "App", "App/Style", "App/Components", "App/Controls", "App/Core", "App/Dialogs",
                                  "src/cpp", "src/js", "assets/icons" };
 
     for (const QString &folder: folders )
@@ -42,6 +42,7 @@ void ProjectBuilder::build(const QJsonObject &obj)
     const QString qtProjectPath = m_projectDir.filePath(m_projectName + ".pro");
 
     createQmlTheme(m_projectDir.filePath("App/Style/Theme.qml"), obj);
+    createQmlFonts(m_projectDir.filePath("App/Style/Fonts.qml"), obj);
 
     createQtPro(qtProjectPath, obj);
     createQmlProject(qmlProjectPath, obj);
@@ -96,6 +97,13 @@ void ProjectBuilder::createQmlTheme(const QString &path, const QJsonObject &obj)
            std::pair{ "{APP_WIDTH}", obj["width"].toInt() },
            std::pair{ "{APP_HEIGHT}", obj["height"].toInt() },
            std::pair{ "{APP_DARKMODE}", obj["darkMode"].toBool() }
+           );
+}
+
+void ProjectBuilder::createQmlFonts(const QString &path, const QJsonObject &obj)
+{
+    create( ":/assets/templates/Fonts.qml.template", path,
+           std::pair{ "{APP_FONT_FAMILY}", obj["fontFamily"].toString() }
            );
 }
 

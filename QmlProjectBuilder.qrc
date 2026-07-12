@@ -51,5 +51,6 @@
         <file>App/ControlPane.qml</file>
         <file>assets/icons/dark_mode.png</file>
         <file>assets/icons/light_mode.png</file>
+        <file>assets/templates/Fonts.qml.template</file>
     </qresource>
 </RCC>

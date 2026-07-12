@@ -1,0 +1,39 @@
+pragma Singleton
+import QtQuick
+
+QtObject {
+    property string family: "{APP_FONT_FAMILY}"
+
+    property real fontFactor: 1
+
+    property QtObject fontSize: QtObject {
+        property int small: 8 * fontFactor
+        property int control: 10 * fontFactor
+        property int medium: 12 * fontFactor
+        property int header: 16 * fontFactor
+        property int title: 18 * fontFactor
+        property int large: 24 * fontFactor
+        property int huge: 32 * fontFactor
+    }
+
+    property font smallFont: Qt.font( { family: family, pointSize: fontSize.small } )
+    property font controlFont: Qt.font( { family: family, pointSize: fontSize.control } )
+    property font mediumFont: Qt.font( { family: family, pointSize: fontSize.medium } )
+    property font headerFont: Qt.font( { family: family, pointSize: fontSize.header } )
+    property font titleFont: Qt.font( { family: family, pointSize: fontSize.title } )
+    property font largeFont: Qt.font( { family: family, pointSize: fontSize.large } )
+    property font hugeFont: Qt.font( { family: family, pointSize: fontSize.huge } )
+
+    property font smallFontBold: Qt.font( { family: family, pointSize: fontSize.small, bold: true } )
+    property font controlFontBold: Qt.font( { family: family, pointSize: fontSize.control, bold: true } )
+    property font mediumFontBold: Qt.font( { family: family, pointSize: fontSize.medium, bold: true } )
+    property font headerFontBold: Qt.font( { family: family, pointSize: fontSize.header, bold: true } )
+    property font titleFontBold: Qt.font( { family: family, pointSize: fontSize.title, bold: true } )
+    property font largeFontBold: Qt.font( { family: family, pointSize: fontSize.large, bold: true } )
+    property font hugeFontBold: Qt.font( { family: family, pointSize: fontSize.huge, bold: true } )
+
+    property font bebasSmall: Qt.font( { family: "Bebas Neue", pointSize: fontSize.control, bold: true } )
+    property font bebasMedium: Qt.font( { family: "Bebas Neue", pointSize: fontSize.header, bold: true } )
+    property font bebasHeader: Qt.font( { family: "Bebas Neue", pointSize: fontSize.title, bold: true } )
+    property font bebasTitle: Qt.font( { family: "Bebas Neue", pointSize: fontSize.large, bold: true } )
+}
