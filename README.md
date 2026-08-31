@@ -1,5 +1,28 @@
-<img width="864" height="905" alt="grafik" src="https://github.com/user-attachments/assets/079add52-6c43-4360-9b90-e08098ecce59" />
+# QMLProjectBuilder
 
-<img width="1279" height="606" alt="grafik" src="https://github.com/user-attachments/assets/b590ad31-4f11-4ef3-83af-4861a6d0a7d7" />
+QMLProjectBuilder ist eine unter Windows entwickelte Desktop-Anwendung zum Erstellen vorkonfigurierter QML-Projekte. Projektstruktur, Darstellung und grundlegende Einstellungen lassen sich bereits vor der Erstellung festlegen.
 
-<img width="1296" height="620" alt="grafik" src="https://github.com/user-attachments/assets/31dac76c-a257-4547-bfcd-f9f81954f696" />
+<img width="808" height="876" alt="grafik" src="https://github.com/user-attachments/assets/07a661be-0c6f-46c2-a9d4-07c1023e7ec3" />
+
+## Funktionen
+
+- Projektname und Zielverzeichnis festlegen und automatisch überprüfen.
+- Bereits vorhandene Projektverzeichnisse erkennen.
+- Fenstergröße manuell eingeben oder aus gerätespezifischen Auflösungen auswählen.
+- Light- oder Dark-Mode für das neue Projekt festlegen.
+- Schriftart, Schriftgröße und Schriftstärke konfigurieren.
+- Vorgegebene Ordnerstruktur und zentrale QML-Dateien automatisch erstellen.
+- Projekt-, Ressourcen- und Konfigurationsdateien aus Vorlagen erzeugen.
+- Das erstellte Projekt optional direkt in Qt Creator oder Qt Design Studio öffnen.
+- Ausgewählte Programmeinstellungen dauerhaft speichern.
+
+## Technologiestack
+
+- C++
+- QML
+- Qt
+- Qt Quick
+- Qt Quick Controls mit Material Style
+- Win32 API
+
+
