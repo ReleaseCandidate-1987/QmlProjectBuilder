@@ -6,14 +6,34 @@ import QtQuick.Dialogs
 import App.Core
 import QtCore
 
+/**
+ * Erfasst und überprüft die Grundeinstellungen für das neue QML-Projekt.
+ *
+ * Dazu gehören Projektname, Zielverzeichnis, Fenstergröße, Farbschema
+ * und die Programme, in denen das fertige Projekt geöffnet werden soll.
+ */
 MaterialPane {
     id: detailsPane
     width: 400
 
+    /**
+     * Stellt den ausgewählten Projektpfad für andere Komponenten bereit.
+     */
     property alias projectPath: projectPath.text
+
+    /**
+     * Stellt den eingegebenen Projektnamen für andere Komponenten bereit.
+     */
     property alias projectName: projectName.text
 
+    /**
+     * Gibt an, ob alle erforderlichen Projekteinstellungen gültig sind.
+     */
     property bool allValid: projectName.isValid && projectPath.isValid && tfWidth.isValid && tfHeight.isValid
+
+    /**
+     * Fasst die ausgewählten Projekteinstellungen für die Projekterstellung zusammen.
+     */
     property var details: ({
                                projectName: projectName.text,
                                projectPath: projectPath.text,
@@ -38,17 +58,20 @@ MaterialPane {
         Layout.topMargin: -16
     }
 
+    /**
+     * Prüft den Projektnamen auf gültige Zeichen und ein bereits vorhandenes Projektverzeichnis.
+     */
     MaterialTextField {
         id: projectName
         placeholderText: "Projekt-Name"
         text: "Unbenannt"
         Layout.fillWidth: true
         isValid: /^[a-zA-Z]{1}([a-zA-Z0-9_]?)+$/.test(text.trim()) && projectWatcher.projectNameValid
-
-
-        //Component.onCompleted: isValid = Qt.binding(() => /^[a-zA-Z]{1}([a-zA-Z0-9_]?)+$/.test(text.trim()) && !ProjectBuilder.projectExists(text.trim()))
     }
 
+    /**
+     * Zeigt den ausgewählten Projektpfad an und ermöglicht die Auswahl eines Zielverzeichnisses.
+     */
     RowLayout {
         spacing: 16
 
@@ -70,6 +93,9 @@ MaterialPane {
                 folderDialog.open()
             }
 
+            /**
+             * Übernimmt das ausgewählte Verzeichnis als neuen Projektpfad.
+             */
             FolderDialog {
                 id: folderDialog
                 onAccepted: {
@@ -88,10 +114,16 @@ MaterialPane {
         Layout.bottomMargin: -14
     }
 
+    /**
+     * Ermöglicht die Auswahl einer vordefinierten Fensterauflösung.
+     */
     DetailsPaneResolution {
         id: detailsPaneResolution
     }
 
+    /**
+     * Ermöglicht die manuelle Eingabe der Fensterbreite und Fensterhöhe.
+     */
     RowLayout {
         spacing: 16
 
@@ -118,6 +150,9 @@ MaterialPane {
 
     MaterialHorizontalLine { }
 
+    /**
+     * Legt das Farbschema des neuen Projekts fest und speichert die Auswahl.
+     */
     MaterialSwitch {
         id: swDarkMode
         Layout.fillWidth: true
@@ -129,6 +164,9 @@ MaterialPane {
         }
     }
 
+    /**
+     * Legt fest, ob das erstellte Projekt anschließend in Qt Design Studio geöffnet wird.
+     */
     MaterialSwitch {
         id: swOpenDesignStudio
         Layout.fillWidth: true
@@ -140,6 +178,9 @@ MaterialPane {
         }
     }
 
+    /**
+     * Legt fest, ob das erstellte Projekt anschließend in Qt Creator geöffnet wird.
+     */
     MaterialSwitch {
         id: swOpenQtCreator
         Layout.fillWidth: true
@@ -150,5 +191,4 @@ MaterialPane {
             appSettings.openInQtCreator = checked
         }
     }
-
 }

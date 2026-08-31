@@ -19,6 +19,12 @@ bool FileUtils::dirExists(const QString &path) {
     return exists;
 }
 
+bool FileUtils::isProjectDir(const QString &path)
+{
+    QDir dir(path);
+    return !dir.entryInfoList({"*.pro", "*.qmlproject"}).isEmpty();
+}
+
 QString FileUtils::toLocalFile(const QUrl &url) { return url.toLocalFile(); }
 QString FileUtils::toLocalFile(const QString &path) {
     const QUrl url(path);

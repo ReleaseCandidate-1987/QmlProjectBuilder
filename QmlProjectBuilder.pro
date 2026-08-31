@@ -2,11 +2,10 @@ QT += quick quickcontrols2
 
 SOURCES += \
         main.cpp \
-        src/cpp/controlloader.cpp \
-        src/cpp/controlmodel.cpp \
         src/cpp/fileutils.cpp \
         src/cpp/projectbuilder.cpp \
-        src/cpp/projectwatcher.cpp
+        src/cpp/projectwatcher.cpp \
+        src/cpp/windowswindowfilter.cpp
 
 CONFIG += c++20
 
@@ -24,10 +23,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    src/cpp/controlloader.h \
-    src/cpp/controlmodel.h \
     src/cpp/fileutils.h \
     src/cpp/projectbuilder.h \
-    src/cpp/projectwatcher.h
-
+    src/cpp/projectwatcher.h \
+    src/cpp/windowswindowfilter.h
 

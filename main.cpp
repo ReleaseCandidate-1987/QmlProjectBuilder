@@ -1,10 +1,11 @@
-#include "src/cpp/controlloader.h"
 #include "src/cpp/fileutils.h"
 #include "src/cpp/projectbuilder.h"
 #include "src/cpp/projectwatcher.h"
-#include <QGuiApplication>
+#include "src/cpp/windowswindowfilter.h"
 
+#include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QIcon>
 
 int main(int argc, char *argv[])
@@ -13,9 +14,11 @@ int main(int argc, char *argv[])
     qputenv("QT_QUICK_CONTROLS_CONF", ":/qtquickcontrols2.conf");
     QGuiApplication app(argc, argv);
 
+    WindowsWindowFilter windowsWindowFilter;
+    app.installNativeEventFilter(&windowsWindowFilter);
+
     qmlRegisterType<ProjectWatcher>("App.Core", 1, 0, "ProjectWatcher");
     qmlRegisterType<ProjectBuilder>("App.Core", 1,0, "ProjectBuilder");
-    qmlRegisterType<ControlLoader>("App.Core", 1,0, "ControlLoader");
     qmlRegisterSingletonType<FileUtils>("App.Core", 1, 0, "FileUtils", &FileUtils::singletonProvider);
     QQmlApplicationEngine engine;
     engine.addImportPath(":/");
@@ -32,6 +35,12 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
     engine.load(url);
+
+    if ( !engine.rootObjects().isEmpty() ) {
+        QWindow *window = qobject_cast<QWindow*>(engine.rootObjects().constFirst());
+        if ( window )
+            windowsWindowFilter.setWindow(window);
+    }
 
     return QGuiApplication::exec();
 }

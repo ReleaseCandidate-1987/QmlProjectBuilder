@@ -18,10 +18,7 @@ Settings {
     property string resolutionOs: "Desktop"
     property url projectPath: ""
     property int fontFamilyIndex: 0
-    property bool showHorizontal: false
 
     property bool isDarkMode: Theme.isDarkMode
-    Component.onCompleted: {
-        Theme.isDarkMode = isDarkMode;
-    }
+
 }

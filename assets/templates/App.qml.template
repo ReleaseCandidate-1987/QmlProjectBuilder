@@ -1,13 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 
+
 Rectangle {
     id: app
     width: Theme.width
     height: Theme.height
-    color: Theme.background
+    color: ColorPalette.background
 
-    AppSettings {
-        id: appSettings
-    }
+    AppSettings { id: appSettings }
+    Responsive { id: responsive }
 }

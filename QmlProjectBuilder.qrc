@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>App/App.qml</file>
         <file>App/AppSettings.qml</file>
-        <file>App/Components/qmldir</file>
         <file>App/Controls/MaterialButton.qml</file>
         <file>App/Controls/MaterialComboBox.qml</file>
         <file>App/Controls/MaterialHorizontalLine.qml</file>
@@ -29,14 +28,11 @@
         <file>assets/icons/icon.ico</file>
         <file>assets/templates/App.qml.template</file>
         <file>assets/templates/AppSettings.qml.template</file>
-        <file>assets/templates/Icons.qml.template</file>
         <file>assets/templates/main.cpp.template</file>
         <file>assets/templates/main.qml.template</file>
         <file>assets/templates/pro.template</file>
         <file>assets/templates/qmlproject.template</file>
         <file>assets/templates/qtquickcontrols2.conf.template</file>
-        <file>assets/templates/Theme.qml.template</file>
-        <file>assets/templates/style.qmldir.template</file>
         <file>assets/templates/app.qmldir.template</file>
         <file>assets/templates/qrc.template</file>
         <file>App/Controls/MaterialSpinBox.qml</file>
@@ -51,6 +47,13 @@
         <file>App/ControlPane.qml</file>
         <file>assets/icons/dark_mode.png</file>
         <file>assets/icons/light_mode.png</file>
-        <file>assets/templates/Fonts.qml.template</file>
+        <file>assets/templates/Responsive.qml.template</file>
+        <file>assets/icons/show_max.png</file>
+        <file>assets/icons/square.png</file>
+        <file>assets/templates/Style.ColorPalette.qml.template</file>
+        <file>assets/templates/Style.Fonts.qml.template</file>
+        <file>assets/templates/Style.Icons.qml.template</file>
+        <file>assets/templates/Style.qmldir.template</file>
+        <file>assets/templates/Style.Theme.qml.template</file>
     </qresource>
 </RCC>

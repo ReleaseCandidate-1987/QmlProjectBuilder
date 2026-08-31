@@ -5,14 +5,14 @@ Settings {
     id: appSettings
 
     property var initSettings: {
-        Qt.application.name = Theme.title
-        Qt.application.domain = Theme.title + ".de"
-        Qt.application.organization = Theme.title + "_org"
+        Qt.application.name = "{APP_PROJECTNAME}"
+        Qt.application.domain = "{APP_PROJECTNAME}.de"
+        Qt.application.organization = "{APP_PROJECTNAME}_org"
     }
 
-    property bool isDarkMode: Theme.isDarkMode
+    property bool isDarkMode: {APP_DARKMODE}
 
     Component.onCompleted: {
-        Theme.isDarkMode = isDarkMode;
+        ColorPalette.isDarkMode = isDarkMode;
     }
 }

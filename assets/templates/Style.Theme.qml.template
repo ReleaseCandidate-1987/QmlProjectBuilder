@@ -1,0 +1,15 @@
+pragma Singleton
+import QtQuick
+import QtQuick.Controls.Material
+
+QtObject {
+    id: qtObject
+    property string title: "{APP_PROJECTNAME}"
+    property int width: {APP_WIDTH}
+    property int height: {APP_HEIGHT}
+
+    readonly property int globalRadius: Material.SmallScale
+    readonly property int backgroundElevation: 12
+    property int controlRadius: 8
+    readonly property int controlHeight: 32
+}

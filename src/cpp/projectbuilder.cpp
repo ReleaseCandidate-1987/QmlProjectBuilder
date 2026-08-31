@@ -31,46 +31,75 @@ void ProjectBuilder::setProjectName(const QString &projectName)
 
 void ProjectBuilder::build(const QJsonObject &obj)
 {
+    m_relativePaths.clear();
     m_projectDir = QDir(m_projectPath + "/" + m_projectName );
-    const QStringList folders = { "App", "App/Style", "App/Components", "App/Controls", "App/Core", "App/Dialogs",
+
+    const QStringList folders = { "App", "App/Components", "App/Style", "App/Controls", "App/Core", "App/Dialogs",
                                  "src/cpp", "src/js", "assets/icons" };
 
+    // Ordner erstellen ----
     for (const QString &folder: folders )
         m_projectDir.mkpath(folder);
 
+    // Defaults ----
     const QString qmlProjectPath = m_projectDir.filePath(m_projectName + ".qmlproject");
     const QString qtProjectPath = m_projectDir.filePath(m_projectName + ".pro");
 
-    createQmlTheme(m_projectDir.filePath("App/Style/Theme.qml"), obj);
-    createQmlFonts(m_projectDir.filePath("App/Style/Fonts.qml"), obj);
+    const QString importTheme = "import App.Style";
+    const QString mode = obj["darkMode"].toBool() ? "Dark" : "Light" ;
 
-    createQtPro(qtProjectPath, obj);
-    createQmlProject(qmlProjectPath, obj);
-    createQtConf(m_projectDir.filePath("qtquickcontrols2.conf"), obj);
 
-    create(":/assets/templates/App.qml.template", m_projectDir.filePath("App/App.qml"));
-    create(":/assets/templates/app.qmldir.template", m_projectDir.filePath("App/qmldir"));
-    create(":/assets/templates/AppSettings.qml.template", m_projectDir.filePath("App/AppSettings.qml"));
-    create(":/assets/templates/Icons.qml.template", m_projectDir.filePath("App/Style/Icons.qml"));
-    create(":/assets/templates/style.qmldir.template", m_projectDir.filePath("App/Style/qmldir"));
+    // Main ----
     create(":/assets/templates/main.cpp.template", m_projectDir.filePath("main.cpp"));
     create(":/assets/templates/main.qml.template", m_projectDir.filePath("main.qml"));
+    create( ":/assets/templates/pro.template", qtProjectPath,
+           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
+           );
 
+    create( ":/assets/templates/qmlproject.template", qmlProjectPath,
+           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
+           );
+
+    create( ":/assets/templates/qtquickcontrols2.conf.template", m_projectDir.filePath("qtquickcontrols2.conf"),
+           std::pair{ "{APP_DARKMODE}", mode },
+           std::pair{ "{APP_FONT_FAMILY}", obj["fontFamily"].toString() },
+           std::pair{ "{APP_FONT_SIZE}", obj["fontSize"].toInt()  },
+           std::pair{ "{APP_FONT_WEIGHT}", obj["fontWeight"].toInt()  }
+           );
+
+    // App.qml / qmldir ----
+    create(":/assets/templates/App.qml.template", m_projectDir.filePath("App/App.qml"));
+    create(":/assets/templates/app.qmldir.template", m_projectDir.filePath("App/qmldir"));
+    create(":/assets/templates/AppSettings.qml.template", m_projectDir.filePath("App/AppSettings.qml"),
+           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() },
+            std::pair{ "{APP_DARKMODE}", obj["darkMode"].toBool() }
+           );
+    create(":/assets/templates/Responsive.qml.template", m_projectDir.filePath("App/Responsive.qml"));
+
+    // Style ----
+    create(":/assets/templates/Style.ColorPalette.qml.template", m_projectDir.filePath("App/Style/ColorPalette.qml"),
+           std::pair{ "{APP_DARKMODE}", obj["darkMode"].toBool() }
+           );
+
+    create(":/assets/templates/Style.Fonts.qml.template", m_projectDir.filePath("App/Style/Fonts.qml"),
+           std::pair{ "{APP_FONT_FAMILY}", obj["fontFamily"].toString() }
+           );
+
+    create(":/assets/templates/Style.Theme.qml.template", m_projectDir.filePath("App/Style/Theme.qml"),
+           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() },
+           std::pair{ "{APP_WIDTH}", obj["width"].toInt() },
+           std::pair{ "{APP_HEIGHT}", obj["height"].toInt() }
+           );
+
+    create(":/assets/templates/Style.Icons.qml.template", m_projectDir.filePath("App/Style/Icons.qml") );
+    create(":/assets/templates/Style.qmldir.template", m_projectDir.filePath("App/Style/qmldir") );
+
+
+    // Direktes schreiben (qmldir) ----
     write(m_projectDir.filePath("App/Core/qmldir"), "");
-    write(m_projectDir.filePath("App/Compoments/qmldir"), "import App.Style");
-    write(m_projectDir.filePath("App/Controls/qmldir"), "import App.Style");
-    write(m_projectDir.filePath("App/Dialogs/qmldir"), "import App.Style");
-
-    const QJsonArray arr = obj["controls"].toArray();
-    for ( const QJsonValue &value: arr ) {
-        if ( !value.isObject() )
-            continue;
-
-        const QString fileName = value["fileName"].toString();
-        const QString content = value["content"].toString();
-         write(m_projectDir.filePath("App/Controls/" + fileName ), content);
-
-    }
+    write(m_projectDir.filePath("App/Components/qmldir"), importTheme);
+    write(m_projectDir.filePath("App/Controls/qmldir"), importTheme);
+    write(m_projectDir.filePath("App/Dialogs/qmldir"), importTheme);
 
     // ====
     createQrc(m_projectDir.filePath(m_projectName + ".qrc"));   
@@ -90,47 +119,6 @@ void ProjectBuilder::write(const QString &path, const QString &content)
     FileUtils::write(path, content);
 }
 
-void ProjectBuilder::createQmlTheme(const QString &path, const QJsonObject &obj)
-{
-    create( ":/assets/templates/Theme.qml.template", path,
-           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() },
-           std::pair{ "{APP_WIDTH}", obj["width"].toInt() },
-           std::pair{ "{APP_HEIGHT}", obj["height"].toInt() },
-           std::pair{ "{APP_DARKMODE}", obj["darkMode"].toBool() }
-           );
-}
-
-void ProjectBuilder::createQmlFonts(const QString &path, const QJsonObject &obj)
-{
-    create( ":/assets/templates/Fonts.qml.template", path,
-           std::pair{ "{APP_FONT_FAMILY}", obj["fontFamily"].toString() }
-           );
-}
-
-void ProjectBuilder::createQtPro(const QString &path, const QJsonObject &obj)
-{
-    create( ":/assets/templates/pro.template", path,
-           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
-           );
-}
-
-void ProjectBuilder::createQtConf(const QString &path, const QJsonObject &obj)
-{
-    const QString mode = obj["darkMode"].toBool() ? "Dark" : "Light" ;
-    create( ":/assets/templates/qtquickcontrols2.conf.template", path,
-           std::pair{ "{APP_DARKMODE}", mode },
-           std::pair{ "{APP_FONT_FAMILY}", obj["fontFamily"].toString() },
-           std::pair{ "{APP_FONT_SIZE}", obj["fontSize"].toInt()  },
-           std::pair{ "{APP_FONT_WEIGHT}", obj["fontWeight"].toInt()  }
-           );
-}
-
-void ProjectBuilder::createQmlProject(const QString &path, const QJsonObject &obj)
-{
-    create( ":/assets/templates/qmlproject.template", path,
-           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
-           );
-}
 
 void ProjectBuilder::createQrc(const QString &path)
 {
@@ -142,11 +130,10 @@ void ProjectBuilder::createQrc(const QString &path)
     FileUtils::replaceContent( temp, std::pair{ "{APP_RESOURCES}", resources.trimmed() } );
     FileUtils::write(path, temp);
 }
-//    <file>App/App.qml</file>
 
-
-
-void ProjectBuilder::addRelativePath(const QString &path) { m_relativePaths.append(m_projectDir.relativeFilePath(path)); }
+void ProjectBuilder::addRelativePath(const QString &path) {
+    m_relativePaths.append(m_projectDir.relativeFilePath(path));
+}
 
 
 

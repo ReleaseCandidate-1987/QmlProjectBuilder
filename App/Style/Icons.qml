@@ -12,4 +12,6 @@ QtObject {
 	readonly property url light_mode: Qt.resolvedUrl('../../assets/icons/light_mode.png')
 	readonly property url refresh: Qt.resolvedUrl('../../assets/icons/refresh.png')
 	readonly property url remove: Qt.resolvedUrl('../../assets/icons/remove.png')
+	readonly property url show_max: Qt.resolvedUrl('../../assets/icons/show_max.png')
+	readonly property url square: Qt.resolvedUrl('../../assets/icons/square.png')
 }
