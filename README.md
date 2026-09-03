@@ -2,7 +2,8 @@
 
 QMLProjectBuilder ist eine unter Windows entwickelte Desktop-Anwendung zum Erstellen vorkonfigurierter QML-Projekte. Projektstruktur, Darstellung und grundlegende Einstellungen lassen sich bereits vor der Erstellung festlegen.
 
-<img width="808" height="876" alt="grafik" src="https://github.com/user-attachments/assets/07a661be-0c6f-46c2-a9d4-07c1023e7ec3" />
+<img width="1602" height="1111" alt="grafik" src="https://github.com/user-attachments/assets/79096e63-82bf-4c30-b617-e424d2993906" />
+
 
 ## Funktionen
 
@@ -13,16 +14,14 @@ QMLProjectBuilder ist eine unter Windows entwickelte Desktop-Anwendung zum Erste
 - Schriftart, Schriftgröße und Schriftstärke konfigurieren.
 - Vorgegebene Ordnerstruktur und zentrale QML-Dateien automatisch erstellen.
 - Projekt-, Ressourcen- und Konfigurationsdateien aus Vorlagen erzeugen.
+- Projekte in qmake oder CMake erstellen.
 - Das erstellte Projekt optional direkt in Qt Creator oder Qt Design Studio öffnen.
 - Ausgewählte Programmeinstellungen dauerhaft speichern.
 
 ## Technologiestack
 
 - C++
-- QML
-- Qt
-- Qt Quick
-- Qt Quick Controls mit Material Style
-- Win32 API
+- Qt/QML
+- Win32 API (TitleBar)
 
 
