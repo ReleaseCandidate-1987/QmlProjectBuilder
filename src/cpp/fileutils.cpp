@@ -22,7 +22,7 @@ bool FileUtils::dirExists(const QString &path) {
 bool FileUtils::isProjectDir(const QString &path)
 {
     QDir dir(path);
-    return !dir.entryInfoList({"*.pro", "*.qmlproject"}).isEmpty();
+    return !dir.entryInfoList({"*.pro", "*.qmlproject", "CMakeLists.txt"}).isEmpty();
 }
 
 QString FileUtils::toLocalFile(const QUrl &url) { return url.toLocalFile(); }

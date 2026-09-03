@@ -18,6 +18,7 @@ Settings {
     property string resolutionOs: "Desktop"
     property url projectPath: ""
     property int fontFamilyIndex: 0
+    property int buildIndex: 0
 
     property bool isDarkMode: Theme.isDarkMode
 

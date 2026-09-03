@@ -41,7 +41,8 @@ MaterialPane {
                                height: Number(tfHeight.text),
                                darkMode: swDarkMode.checked,
                                openDesignStudio: swOpenDesignStudio.checked,
-                               openQtCreator: swOpenQtCreator.checked
+                               openQtCreator: swOpenQtCreator.checked,
+                               buildSystem: buildCb.currentText
                            })
 
     Label {
@@ -149,6 +150,17 @@ MaterialPane {
     }
 
     MaterialHorizontalLine { }
+
+    /**
+     * Legt das Build-System fest.
+     */
+    MaterialComboBox {
+        id: buildCb
+        model: ["qmake", "CMake"]
+        currentIndex: appSettings.buildIndex
+        Layout.fillWidth: true
+        onActivated: appSettings.buildIndex = currentIndex;
+    }
 
     /**
      * Legt das Farbschema des neuen Projekts fest und speichert die Auswahl.

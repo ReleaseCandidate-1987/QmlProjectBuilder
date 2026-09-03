@@ -55,5 +55,7 @@
         <file>assets/templates/Style.Icons.qml.template</file>
         <file>assets/templates/Style.qmldir.template</file>
         <file>assets/templates/Style.Theme.qml.template</file>
+        <file>App/Controls/MaterialRadioButton.qml</file>
+        <file>assets/templates/CMakeLists.txt.template</file>
     </qresource>
 </RCC>

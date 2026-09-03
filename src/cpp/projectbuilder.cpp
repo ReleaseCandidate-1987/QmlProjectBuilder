@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QDesktopServices>
 #include <QJsonArray>
+#include <QProcess>
 
 ProjectBuilder::ProjectBuilder(QObject *parent)
     : QObject{parent}
@@ -43,18 +44,28 @@ void ProjectBuilder::build(const QJsonObject &obj)
 
     // Defaults ----
     const QString qmlProjectPath = m_projectDir.filePath(m_projectName + ".qmlproject");
-    const QString qtProjectPath = m_projectDir.filePath(m_projectName + ".pro");
+    QString qtProjectPath;
 
     const QString importTheme = "import App.Style";
     const QString mode = obj["darkMode"].toBool() ? "Dark" : "Light" ;
+    const QString buildSystem = obj["buildSystem"].toString();
 
 
     // Main ----
     create(":/assets/templates/main.cpp.template", m_projectDir.filePath("main.cpp"));
     create(":/assets/templates/main.qml.template", m_projectDir.filePath("main.qml"));
-    create( ":/assets/templates/pro.template", qtProjectPath,
-           std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
-           );
+
+    if ( buildSystem == "qmake" ) {
+        qtProjectPath = m_projectDir.filePath(m_projectName + ".pro");
+        create( ":/assets/templates/pro.template", qtProjectPath,
+               std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
+               );
+    } else {
+        qtProjectPath = m_projectDir.filePath("CMakeLists.txt");
+        create( ":/assets/templates/CMakeLists.txt.template", qtProjectPath,
+               std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
+               );
+    }
 
     create( ":/assets/templates/qmlproject.template", qmlProjectPath,
            std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() }
@@ -72,7 +83,7 @@ void ProjectBuilder::build(const QJsonObject &obj)
     create(":/assets/templates/app.qmldir.template", m_projectDir.filePath("App/qmldir"));
     create(":/assets/templates/AppSettings.qml.template", m_projectDir.filePath("App/AppSettings.qml"),
            std::pair{ "{APP_PROJECTNAME}", obj["projectName"].toString() },
-            std::pair{ "{APP_DARKMODE}", obj["darkMode"].toBool() }
+           std::pair{ "{APP_DARKMODE}", obj["darkMode"].toBool() }
            );
     create(":/assets/templates/Responsive.qml.template", m_projectDir.filePath("App/Responsive.qml"));
 
@@ -109,7 +120,14 @@ void ProjectBuilder::build(const QJsonObject &obj)
         QDesktopServices::openUrl(QUrl::fromLocalFile(qmlProjectPath));
     }
     if ( obj["openQtCreator"].toBool() ) {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(qtProjectPath));
+        if ( buildSystem == "qmake" ) {
+            QDesktopServices::openUrl(QUrl::fromLocalFile(qtProjectPath));
+        } else {
+            QProcess::startDetached(
+                "D:/Programme/Qt/Tools/QtCreator/bin/qtcreator.exe",
+                QStringList{ m_projectDir.absolutePath() }
+                );
+        }
     }
 }
 
